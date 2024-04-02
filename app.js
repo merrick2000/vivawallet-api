@@ -45,15 +45,11 @@ app.post('/init-payment', async(req, res) => {
     }
     
 });
-app.get('/viva-webhook', async(req, res) => {
-  // if (steps.webhookEndpoint.event.method === 'POST') {
-  //   console.dir(steps.webhookEndpoint.event.body);
-  //   return {
-  //     statusCode: 200,
-  //     body: JSON.stringify({ message: 'ok' })
-  //   };
-  // }
-
+app.all('/viva-webhook', async(req, res) => {
+  if (req.method === 'POST') {
+    console.log('POST request received', req.body);
+    return res.json({"body": 5})
+  }
   try {
     const merchantId = process.env.VIVA_MERCHANT_ID;
     const apiKey = process.env.VIVA_API_KEY;
