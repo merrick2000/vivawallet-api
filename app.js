@@ -71,7 +71,7 @@ app.get('/viva-webhook', async(req, res) => {
 
     console.log('Le webhook a été validé');
     
-    return res.json({ key: code });
+    return res.json({ Key: code });
   } catch (error) {
     console.error('Erreur lors de la validation du webhook:', error);
     return {
