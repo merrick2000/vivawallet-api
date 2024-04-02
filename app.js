@@ -48,7 +48,7 @@ app.post('/init-payment', async(req, res) => {
 app.all('/viva-webhook', async(req, res) => {
   if (req.method === 'POST') {
     const { EventData } = req.body
-    console.log('POST request received', EventData);
+    console.log('POST request received', req.body);
     //Transaction proceed successfully
     if(EventDat.StatusId === 'F'){
       const transaction = {
