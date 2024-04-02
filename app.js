@@ -46,13 +46,13 @@ app.post('/init-payment', async(req, res) => {
     
 });
 app.post('/viva-webhook', async(req, res) => {
-  if (steps.webhookEndpoint.event.method === 'POST') {
-    console.dir(steps.webhookEndpoint.event.body);
-    return {
-      statusCode: 200,
-      body: JSON.stringify({ message: 'ok' })
-    };
-  }
+  // if (steps.webhookEndpoint.event.method === 'POST') {
+  //   console.dir(steps.webhookEndpoint.event.body);
+  //   return {
+  //     statusCode: 200,
+  //     body: JSON.stringify({ message: 'ok' })
+  //   };
+  // }
 
   try {
     const merchantId = process.env.VIVA_MERCHANT_ID;
@@ -71,11 +71,7 @@ app.post('/viva-webhook', async(req, res) => {
 
     console.log('Le webhook a été validé');
     
-    return {
-      statusCode: 200,
-      headers: { "test-header": "value" },
-      body: JSON.stringify({ key: code })
-    };
+    return res.json({ key: code });
   } catch (error) {
     console.error('Erreur lors de la validation du webhook:', error);
     return {
