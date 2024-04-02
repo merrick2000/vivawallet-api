@@ -4,11 +4,11 @@ import ngrok from 'ngrok';
 
 app.listen(process.env.PORT || 3000, () => {
     console.log(`App running at http://localhost:${process.env.PORT || 3000}`);
-    ngrok.connect(process.env.PORT || 3000).then(ngrokUrl=> {
-        console.log('ngrok url: ', ngrokUrl)
-    }).catch(error => {
-        console.log('ngerror: ', error)
-    })
+    // ngrok.connect(process.env.PORT || 3000).then(ngrokUrl=> {
+    //     console.log('ngrok url: ', ngrokUrl)
+    // }).catch(error => {
+    //     console.log('ngerror: ', error)
+    // })
 
     // run a cron every 1 hour
     // cron.schedule('0 * * * *', async () => {
