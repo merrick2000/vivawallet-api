@@ -47,8 +47,19 @@ app.post('/init-payment', async(req, res) => {
 });
 app.all('/viva-webhook', async(req, res) => {
   if (req.method === 'POST') {
-    console.log('POST request received', req.body);
-    return res.json({"body": 5})
+    const { EventData } = req.body
+    //console.log('POST request received', payload);
+    //Transaction proceed successfully
+    if(EventData?.StatusId === 'F'){
+      const transaction = {
+        id: EventData?.TransactionId,
+        amount: EventData?.Amount,
+        orderCode: EventData?.OrderCode,
+      }
+      console.log(transaction)
+    }
+    
+    return res.status(200).json({"message": "ok"})
   }
   try {
     const merchantId = process.env.VIVA_MERCHANT_ID;
