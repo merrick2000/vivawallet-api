@@ -45,7 +45,7 @@ app.post('/init-payment', async(req, res) => {
     }
     
 });
-app.post('/viva-webhook', async(req, res) => {
+app.get('/viva-webhook', async(req, res) => {
   // if (steps.webhookEndpoint.event.method === 'POST') {
   //   console.dir(steps.webhookEndpoint.event.body);
   //   return {
