@@ -5,8 +5,6 @@ import dotenv from 'dotenv'
 import axios from 'axios';
 import cors from 'cors';
 
-const WEBHOOK_TOKEN_URL = "https://demo.vivapayments.com/api/messages/config/token"
-
 const app = express();
 
 app.use(express.static("public"));
