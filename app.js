@@ -55,8 +55,8 @@ app.all('/viva-webhook', async(req, res) => {
         orderCode: EventData.OrderCode,
       }
       console.log(transaction)
-      const order = await RetrieveVivaOrder(EventData.OrderCode)
-      console.log('order: ',order)
+      // const order = await RetrieveVivaOrder(EventData.OrderCode)
+      // console.log('order: ',order)
       
       // const reservation = {
       //   pi: "",
