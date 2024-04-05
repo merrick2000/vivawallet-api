@@ -57,9 +57,21 @@ app.all('/viva-webhook', async(req, res) => {
         orderCode: EventData.OrderCode,
       }
       console.log(transaction)
+      const order = await RetrieveVivaOrder(EventData.OrderCode)
+      console.log('order: ',order)
+      
+      // const reservation = {
+      //   pi: "",
+      //   reservation_uid: paymentIntent.metadata.reservation_uid,
+      //   event_id: paymentIntent.metadata.event_id,
+      //   container_details: paymentIntent.metadata.container_details,
+      //   code_promo: paymentIntent.metadata.code_promo,
+      //   lng:  paymentIntent.metadata.lng
+      // }
+      //console.log(transaction)
     }
     
-    return res.status(200).json({"message": "ok"})
+    return res.json({"message": "ok"})
   }
   try {
     const merchantId = process.env.VIVA_MERCHANT_ID;
@@ -68,7 +80,7 @@ app.all('/viva-webhook', async(req, res) => {
 
     const resp = await axios({
       method: "GET",
-      url: WEBHOOK_TOKEN_URL,
+      url: process.env.WEBHOOK_TOKEN_URL,
       headers: {
         "Authorization": `Basic ${credentials}`
       }
@@ -148,4 +160,34 @@ const createVivaOrder = async (data, token) => {
       throw new Error('Error occurred while creating Viva order');
     }
   };
+
+  export const RetrieveVivaOrder = async (orderCode) => {
+    const clientId = process.env.VIVA_CLIENT_ID
+    const clientSecret = process.env.VIVA_CLIENT_SECRET
+    const basicAuth = btoa(`${clientId}:${clientSecret}`);
+    try {
+        // Authenticate using Basic Authentication
+        const authHeader = `Basic ${basicAuth}`;
+        // Make a request to create a new order
+        const orderUrl = `https://demo.vivapayments.com/api/orders/${orderCode}`;
+    
+        const orderResponse = await axios.get(orderUrl, {
+          headers: {
+            Authorization: authHeader,
+            'Content-Type': 'application/json'
+          }
+        });
+    
+        if (orderResponse.status === 200) {
+          return {
+              order: orderResponse.data
+          };
+        } else {
+          throw new Error(`Failed to create Viva order. Status code: ${orderResponse.status}`);
+        }
+      } catch (error) {
+        console.error('Error:', error.response);
+        throw new Error('Error occurred while creating Viva order');
+      }
+    };
 export default app
