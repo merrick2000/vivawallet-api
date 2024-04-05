@@ -50,7 +50,7 @@ app.all('/viva-webhook', async(req, res) => {
   if (req.method === 'POST') {
     const { EventData } = req.body
     //Transaction proceed successfully
-    if(EventData.StatusId === 'F'){
+    if(EventData.StatusId == 'F'){
       const transaction = {
         id: EventData.TransactionId,
         amount: EventData.Amount,
