@@ -53,20 +53,17 @@ app.all('/viva-webhook', async(req, res) => {
         id: EventData.TransactionId,
         amount: EventData.Amount,
         orderCode: EventData.OrderCode,
+        reservation_uid: EventData.MerchantTrns
       }
-      console.log(transaction)
-      // const order = await RetrieveVivaOrder(EventData.OrderCode)
-      // console.log('order: ',order)
       
-      // const reservation = {
-      //   pi: "",
-      //   reservation_uid: paymentIntent.metadata.reservation_uid,
-      //   event_id: paymentIntent.metadata.event_id,
-      //   container_details: paymentIntent.metadata.container_details,
-      //   code_promo: paymentIntent.metadata.code_promo,
-      //   lng:  paymentIntent.metadata.lng
-      // }
-      //console.log(transaction)
+      const reservation = {
+        pi: "",
+        transactionId: EventData.TransactionId,
+        amount: EventData.Amount,
+        orderCode: EventData.OrderCode,
+        reservation_uid: EventData.MerchantTrns
+      }
+      console.log(reservation)
     }
     
     return res.json({"message": "ok"})
